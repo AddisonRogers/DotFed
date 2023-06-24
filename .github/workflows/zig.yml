@@ -3,11 +3,13 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Zig
     steps:
       - uses: actions/checkout@v2
       - uses: goto-bus-stop/setup-zig@v2
-      - name: test
-        run: zig build test
-        working-directory: ~/Zig
+      - run: zig build test
+     
     
   
