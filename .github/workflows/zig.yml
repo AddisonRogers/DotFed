@@ -7,6 +7,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: goto-bus-stop/setup-zig@v2
       - run: zig build test
-        working-directory: ./zig
+        working-directory: /Zig
     
   
