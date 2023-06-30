@@ -11,3 +11,4 @@ I code
 - [ ] Other stuff !
 
 
+Use Inter as it is the best font. FIGHT ME
