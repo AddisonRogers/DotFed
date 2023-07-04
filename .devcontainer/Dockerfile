@@ -1,11 +1,11 @@
 #FROM registry.access.redhat.com/ubi9/ubi:9.2-696
 FROM node:20-alpine3.17
 
-WORKDIR /
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN node install
+RUN npm install
 
 COPY . .
 
