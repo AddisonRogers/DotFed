@@ -19,7 +19,7 @@
 </script>
 
 <!-- This needs to have two different ig styles depednent on if a property is true or not-->
-
+was
 <!-- svelte-ignore a11y-missing-attribute -->
 <img src=image loading="lazy"/>
 
