@@ -8,6 +8,6 @@ WORKDIR /
 COPY ["package.json", "package-lock.json*", "./"]
 RUN bun install --production
 COPY . .
-run vite build
+RUN vite build
 WORKDIR /build
 CMD [ "bun", "run start" ]
