@@ -12,10 +12,6 @@ pub fn main() !void {
     const stdout = bw.writer();
     stdout.print("//END//");
     try bw.flush();
-
-    const stdout_file = std.io.getStdOut().writer();
-    var bw = std.io.bufferedWriter(stdout_file);
-    try bw.flush();
 }
 
 // Why is this needed?
