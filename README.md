@@ -12,5 +12,5 @@ I code
 
 
 Use Inter as it is the best font. FIGHT ME
-Using SurrelDB as I CAN FUCK YOU
+Using Postges as I CAN FUCK YOU
 https://www.npmjs.com/package/argon2-ffi
