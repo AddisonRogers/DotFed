@@ -1,0 +1,19 @@
+{
+	"/": [],
+	"/about": [],
+	"/communities": [],
+	"/communities/list": [
+		"src/routes/communities/list/+page.ts"
+	],
+	"/communities/new": [],
+	"/posts": [],
+	"/posts/new": [],
+	"/settings": [],
+	"/user": [],
+	"/user/list": [],
+	"/user/new": [],
+	"/user/[userid]": [],
+	"/[community]": [],
+	"/[community]/posts": [],
+	"/[community]/posts/[postid]": []
+}
