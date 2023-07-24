@@ -106,4 +106,11 @@ app.MapDelete("/user/{id}/data", async Task<IResult> (string id) =>
     return Ok(200);
 });
 
+app.MapGet("/list", async Task<IResult> () =>
+{
+    new HttpClient();
+    
+});
+
+
 app.Run();

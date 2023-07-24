@@ -10,3 +10,10 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 Zig/zig-out/bin
 Zig/zig-cache
+
+DotFedServer/.idea
+DotFedServer/.idea/*
+DotFedServer/DotFedServer/obj
+DotFedServer/DotFedServer/obj/*
+DotFedServer/DotFedServer/bin
+DotFedServer/DotFedServer/bin/*

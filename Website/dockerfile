@@ -1,7 +1,16 @@
-FROM scratch as ZIG
-WORKDIR /src/wasm_modules
+FROM debian:latest AS downloader
+WORKDIR /
 
+# Have to maintain this URL. Let's hope the URL scheme doesn't change
+RUN wget https://ziglang.org/builds/zig-linux-x86_64-0.11.0.tar.xz -O zig.tar.xz && \
+    tar xvf zig.tar.xz --strip-components=1 -C zig
 
+FROM scratch AS zig
+WORKDIR /
+COPY --from=downloader /zig zig
+
+ENV PATH=/zig
+WORKDIR /build
 
 FROM oven/bun as JS
 WORKDIR /
