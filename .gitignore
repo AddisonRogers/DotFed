@@ -8,9 +8,12 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-Zig/zig-out/bin
-Zig/zig-cache
 
+# WASM
+Website/src/wasm_modules/zig-out/bin
+Website/src/wasm_modules/zig-cache
+
+# DotFedServer
 DotFedServer/.idea
 DotFedServer/.idea/*
 DotFedServer/DotFedServer/obj
