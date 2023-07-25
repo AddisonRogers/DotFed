@@ -1,19 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Net.Mail;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 using DotFedServer;
+using HtmlAgilityPack;
 using Isopoh.Cryptography.Argon2;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using static Microsoft.AspNetCore.Http.Results;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddDbContext<Db>(opt => opt.UseInMemoryDatabase("test"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var app = builder.Build();
 using var db = new Db(new DbContextOptionsBuilder<Db>().UseInMemoryDatabase("test").Options);
 
 app.MapGet("/", string () => "Hello World!");
-
-//app.MapGet("/users", List<User>? () => db.Users?.ToList());
 
 app.MapPost("/user/add", async Task<IResult> (string username, string password, string email) =>
 {
@@ -106,11 +115,22 @@ app.MapDelete("/user/{id}/data", async Task<IResult> (string id) =>
     return Ok(200);
 });
 
-app.MapGet("/list", async Task<IResult> () =>
+app.MapGet("/list", async Task<JsonElement> (string? id) =>
 {
-    new HttpClient();
+    /*
+    var client = new HttpClient();
+    var request = new HttpRequestMessage(HttpMethod.Post, "https://the-federation.info/v1/graphql");
+    var content = new StringContent("{\"query\":\"query MyQuery {\\r\\n                thefederation_node(where: { thefederation_platform: { name: { _iregex: \\\"(lemmy|kbin)\\\" } } }) {\\r\\n                name\\r\\n                open_signups\\r\\n                thefederation_platform {\\r\\n                name\\r\\n                }\\r\\n                }\\r\\n                }\",\"variables\":{}}", null, "application/json");
+    request.Content = content;
+    var response = await client.SendAsync(request);
+    response.EnsureSuccessStatusCode();
+    var result = await response.Content.ReadAsStringAsync();
+    var json = JsonDocument.Parse(result);
+    var nodes = json.RootElement.GetProperty("data").GetProperty("thefederation_node");
+    */
     
+    var json = JsonDocument.Parse(await System.IO.File.ReadAllTextAsync("data.json"));
+    return json.RootElement.GetProperty("data").GetProperty("thefederation_node");
 });
-
 
 app.Run();

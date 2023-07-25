@@ -13,14 +13,14 @@ const Data = struct { data: struct {
 } }; // Schema
 
 // Might move this to C# later
-fn getList() []Data.data.nodes {
-    var allocator = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    const query = "query MyQuery {thefederation_node(where: {thefederation_platform: {name: {_iregex: \"lemmy|kbin|mastodon\"}}}) {nameopen_signupsthefederation_platform {name}}}";
-    var x = Data{};
-    var json = httpclient.get("https://the-federation.info/v1/graphql", x, allocator, query);
+//fn getList() []Data.data.nodes {
+//    var allocator = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+//    const query = "query MyQuery {thefederation_node(where: {thefederation_platform: {name: {_iregex: \"lemmy|kbin|mastodon\"}}}) {nameopen_signupsthefederation_platform {name}}}";
+//    var x = Data{};
+//    var json = httpclient.get("https://the-federation.info/v1/graphql", x, allocator, query);
 
-    return json.data.nodes;
-}
+//    return json.data.nodes;
+//}
 
 const lemmyData = struct {};
 
