@@ -1,7 +1,7 @@
 <!-- This is the posts you see in /posts and  -->
 
 <script lang="ts">
-    export let authour : string = "John Doe";
+    export let actor_id : string = "John Doe";
     export let title : string = "Funky title";
     export let server : string = "Funky server";
     export let community : string = "Funky community";
@@ -16,6 +16,13 @@
     /* 
     Original, Old
     */
+
+
+
+
+
+
+
 </script>
 
 <!-- This needs to have two different ig styles depednent on if a property is true or not-->
@@ -26,3 +33,4 @@ was
 <style>
 
 </style>
+

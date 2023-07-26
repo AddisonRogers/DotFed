@@ -42,6 +42,9 @@ app.MapPost("/user/add", async Task<IResult> (string username, string password, 
     
     db.Users.Add(user);
     await db.SaveChangesAsync();
+    
+    // TODO add return JWT
+    
     return Ok(200);
 });
 
@@ -115,7 +118,7 @@ app.MapDelete("/user/{id}/data", async Task<IResult> (string id) =>
     return Ok(200);
 });
 
-app.MapGet("/list", async Task<JsonElement> (string? id) =>
+app.MapGet("/list", async Task<JsonElement> () =>
 {
     /*
     var client = new HttpClient();
@@ -133,4 +136,32 @@ app.MapGet("/list", async Task<JsonElement> (string? id) =>
     return json.RootElement.GetProperty("data").GetProperty("thefederation_node");
 });
 
+app.MapGet("/list/{server}", async Task<JsonArray> (string server) =>
+    {
+        var json = JsonDocument.Parse(await System.IO.File.ReadAllTextAsync("data.json"));
+        var nodes = json.RootElement.GetProperty("data").GetProperty("thefederation_node");
+        var specialisedNodes = new JsonArray();
+        foreach (var node in nodes.EnumerateArray())
+        {
+            if (node.GetProperty("thefederation_platform").GetProperty("name").GetString() == server)
+            {
+                specialisedNodes.Add(node.GetProperty("name"));
+            }
+        }
+        
+        return specialisedNodes;
+    });
+
+
+
+
+/*
+ * {
+        "name": "lemmy.nauk.io",
+        "open_signups": false,
+        "thefederation_platform": {
+          "name": "lemmy"
+        }
+      },
+ */
 app.Run();

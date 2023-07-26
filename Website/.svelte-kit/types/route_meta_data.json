@@ -9,9 +9,12 @@
 	"/posts": [],
 	"/posts/new": [],
 	"/settings": [],
-	"/user": [],
-	"/user/list": [],
-	"/user/new": [],
+	"/user/login": [
+		"src/routes/user/login/+page.server.ts"
+	],
+	"/user/new": [
+		"src/routes/user/new/+page.server.ts"
+	],
 	"/user/[userid]": [],
 	"/[community]": [],
 	"/[community]/posts": [],
