@@ -1,0 +1,17 @@
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\DotFedServer.exe
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\appsettings.Development.json
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\appsettings.json
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\data.json
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\DotFedServer.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\DotFedServer.deps.json
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\DotFedServer.runtimeconfig.json
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\DotFedServer.pdb
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\HtmlAgilityPack.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Isopoh.Cryptography.Argon2.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Isopoh.Cryptography.Blake2b.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Isopoh.Cryptography.SecureArray.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Microsoft.EntityFrameworkCore.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\dotracc\Documents\Code\DotFed\DotFedServer\DotFedServer\bin\Debug\net7.0\publish\Microsoft.EntityFrameworkCore.Relational.dll

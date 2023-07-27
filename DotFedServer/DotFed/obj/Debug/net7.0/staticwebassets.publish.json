@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "sjjbcC1UjiebDOsyyMBgajrrxKZUfEw3bgpivAmi6js=",
+  "Source": "DotFedServer",
+  "BasePath": "_content/DotFedServer",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
