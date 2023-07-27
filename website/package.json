@@ -1,7 +1,7 @@
 {
-  "name": "dotfed",
+  "name": "website",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,15 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/deno": "^4.3.0",
-    "@astrojs/sitemap": "^2.0.1",
     "@astrojs/svelte": "^3.1.0",
-    "@astrojs/tailwind": "^4.0.0",
     "astro": "^2.9.3",
-    "astro-google-fonts-optimizer": "^0.2.2",
-    "astro-navbar": "^2.0.1",
-    "astro-purgecss": "^2.3.0",
-    "svelte": "^3.59.1",
-    "tailwindcss": "^3.3.3"
+    "svelte": "^3.59.1"
   }
 }
