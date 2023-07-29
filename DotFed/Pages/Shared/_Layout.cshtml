@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - DotFed</title>
     <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
     <script type="module"> import { tw } from 'https://cdn.skypack.dev/twind' </script>
+    <script src="htmx.org@1.9.4_dist_htmx.min.js"> </script>
+    
 </head>
 <body>
 <header>
@@ -43,8 +44,7 @@
     </div>
 </footer>
 
-<script src="~/js/site.js" asp-append-version="true"></script>
 
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>

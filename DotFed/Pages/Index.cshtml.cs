@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Htmx;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DotFed.Pages;
@@ -14,5 +15,13 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
+        
+    }
+    
+    public IActionResult OnPost()
+    {
+        return Request.IsHtmx()
+            ? Content("<span>Hello, World!</span>", "text/html")
+            : Page();
     }
 }
