@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - DotFed</title>
+    <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
+    <script type="module"> import { tw } from 'https://cdn.skypack.dev/twind' </script>
+</head>
+<body>
+<header>
+    <nav>
+        <div>
+            <a asp-area="" asp-page="/Index">DotFed</a>
+            <button type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+            </button>
+            <div>
+                <ul>
+                    <li>
+                        <a asp-area="" asp-page="/Index">Home</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-page="/Privacy">Privacy</a>
+                    </li>
+                </ul>
+                <partial name="_LoginPartial"/>
+            </div>
+        </div>
+    </nav>
+</header>
+<div>
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
+
+<footer>
+    <div>
+        &copy; 2023 - DotFed - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </div>
+</footer>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
