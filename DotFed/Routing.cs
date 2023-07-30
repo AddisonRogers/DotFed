@@ -9,7 +9,7 @@ namespace DotFed;
 
 public static class Routing
 {
-    public static void AddRoutes(this WebApplication app, Db db)
+    public static void AddRoutes(this WebApplication app, Db? db)
     {
         
         
@@ -19,11 +19,19 @@ public static class Routing
         //https://htmx.org/examples/infinite-scroll/
         
         
-        
+        AddMain(app.MapGroup("/"), db);
         AddAPI(app.MapGroup("/API"), db);
     }
 
-    private static void AddAPI(RouteGroupBuilder app, Db db)
+    private static void AddMain(RouteGroupBuilder app, Db? db)
+    {
+        app.MapGet("/")
+    }
+    
+    
+    
+    
+    private static void AddAPI(RouteGroupBuilder app, Db? db)
     {
         var user = app.MapGroup("/user");
         
@@ -32,7 +40,7 @@ public static class Routing
             if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email)) return BadRequest();
             if (MailAddress.TryCreate(email, out var mailAddress)) return BadRequest("Invalid email address");
             if(db == null) return BadRequest("Database is null");
-            if(await db.Users.AnyAsync(u => u.Username == username)) return BadRequest("User already exists");
+            if(db.Users != null && await db.Users.AnyAsync(u => u.Username == username)) return BadRequest("User already exists");
             
             var hashedPw = Argon2.Hash(password);
             
