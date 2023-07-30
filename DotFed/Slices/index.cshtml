@@ -1,0 +1,17 @@
+﻿@inherits RazorSliceHttpResult<string>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hello from Razor Slices!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+    <button hx-post="/hello" hx-swap="outerHTML" hx-trigger="click" hx-target="#change"> Click me! </button>
+    <text id = "change"> wha </text> from Razor Slices! The time is @Model
+</div>
+</body>
+</html>
