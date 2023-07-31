@@ -9,17 +9,17 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DotFed
 build_property.RootNamespace = DotFed
-build_property.ProjectDir = /home/addison/RiderProjects/DotFed/DotFed/
+build_property.ProjectDir = C:\Users\dotracc\Documents\Code\DotFed\DotFed\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/addison/RiderProjects/DotFed/DotFed
+build_property.MSBuildProjectDirectory = C:\Users\dotracc\Documents\Code\DotFed\DotFed
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/addison/RiderProjects/DotFed/DotFed/Slices/index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = U2xpY2VzL2luZGV4LmNzaHRtbA==
+[C:/Users/dotracc/Documents/Code/DotFed/DotFed/Slices/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = U2xpY2VzXGluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/addison/RiderProjects/DotFed/DotFed/Slices/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = U2xpY2VzL19WaWV3SW1wb3J0cy5jc2h0bWw=
+[C:/Users/dotracc/Documents/Code/DotFed/DotFed/Slices/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = U2xpY2VzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

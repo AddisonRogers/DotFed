@@ -9,6 +9,9 @@ namespace DotFed;
 
 public static class Routing
 {
+    static readonly HttpClient client = new HttpClient();
+    
+    
     public static void AddRoutes(this WebApplication app, Db? db)
     {
         
@@ -25,7 +28,7 @@ public static class Routing
 
     private static void AddMain(RouteGroupBuilder app, Db? db)
     {
-        app.MapGet("/")
+        
     }
     
     
@@ -33,6 +36,12 @@ public static class Routing
     
     private static void AddAPI(RouteGroupBuilder app, Db? db)
     {
+        app.MapGet("/Lemmy",
+            () => (Lemmy.GetData(Lemmy.NewConnection(client,"lemmy.ml", null), null, null, null)));
+        
+        
+        
+        
         var user = app.MapGroup("/user");
         
         user.MapPost("/user/add", async Task<IResult> (string username, string password, string email) =>

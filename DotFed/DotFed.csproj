@@ -14,6 +14,8 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
       <PackageReference Include="RazorSlices" Version="0.7.0" />
+      <PackageReference Include="RestSharp" Version="110.2.0" />
+      <PackageReference Include="RestSharp.Serializers.SystemTextJson" Version="106.15.0" />
     </ItemGroup>
 
 
