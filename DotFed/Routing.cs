@@ -14,9 +14,6 @@ public static class Routing
     
     public static void AddRoutes(this WebApplication app, Db? db)
     {
-        
-        
-        
         app.MapGet("/", () => Results.Extensions.RazorSlice("/Slices/Index.cshtml", "NAME"));
         app.MapPost("/", () => Content("<span>Hello World</span>", "text/html"));
         //https://htmx.org/examples/infinite-scroll/
@@ -29,15 +26,21 @@ public static class Routing
     private static void AddMain(RouteGroupBuilder app, Db? db)
     {
         
+        
+        
+        
+        
+        
     }
-    
-    
     
     
     private static void AddAPI(RouteGroupBuilder app, Db? db)
     {
         app.MapGet("/Lemmy",
-            () => (Lemmy.GetData(Lemmy.NewConnection(client,"lemmy.ml", null), null, null, null)));
+            () =>
+            {
+                Thread.Sleep(1000000);
+            });
         
         
         
