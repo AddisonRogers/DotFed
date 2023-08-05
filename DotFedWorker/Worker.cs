@@ -55,7 +55,7 @@ public sealed class Worker : BackgroundService
         
         while (!stoppingToken.IsCancellationRequested)
         {
-            
+            RazorBlade.Scrape("https://kbin.social/all", "Kbin");
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
             Thread.Sleep(1000);
         }
@@ -136,9 +136,9 @@ public class RazorBlade
         
         var page = await browser.NewPageAsync();
         await page.GotoAsync(url);
-        var x = page.Locator("#app > div.mt-4.p-0.fl-1 > div > div > div > main > div.main-content-wrapper > div > div.post-listings > div:nth-child(1)");
-        
-        return x.ToString();
+        var x = page.Locator("#content > div");
+        var y = x.Locator("article");
+        return y.ToString();
     }
     
     static async Task<string> LemmyScrape(string url) {
