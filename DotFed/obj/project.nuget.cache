@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DxOkZoNGcmzhai9RYZST+3EodGD4MZc9ws1KQEWPsY/EPvE3AQ/Z9OEiZPmLf7eC5ApUOACFdy6Wnz40N/guLQ==",
+  "dgSpecHash": "MKZSZ8oBqEIgZXlTLCjn7oUEcmAbJudQgJoFYh2vlfKTpi83gv2L8UsBi9HZrr1Uh7wnPiBIuoIELK8kci3/wQ==",
   "success": true,
   "projectFilePath": "/home/dotracc/Documents/Code/DotFed/DotFed/DotFed.csproj",
   "expectedPackageFiles": [
@@ -9,11 +9,9 @@
     "/home/dotracc/.nuget/packages/isopoh.cryptography.blake2b/1.1.12/isopoh.cryptography.blake2b.1.1.12.nupkg.sha512",
     "/home/dotracc/.nuget/packages/isopoh.cryptography.securearray/1.1.12/isopoh.cryptography.securearray.1.1.12.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.aspnetcore.diagnostics.entityframeworkcore/7.0.9/microsoft.aspnetcore.diagnostics.entityframeworkcore.7.0.9.nupkg.sha512",
-    "/home/dotracc/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.entityframeworkcore/7.0.9/microsoft.entityframeworkcore.7.0.9.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.9/microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.9/microsoft.entityframeworkcore.analyzers.7.0.9.nupkg.sha512",
-    "/home/dotracc/.nuget/packages/microsoft.entityframeworkcore.inmemory/7.0.9/microsoft.entityframeworkcore.inmemory.7.0.9.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.9/microsoft.entityframeworkcore.relational.7.0.9.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
@@ -24,11 +22,12 @@
     "/home/dotracc/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
     "/home/dotracc/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
-    "/home/dotracc/.nuget/packages/microsoft.playwright/1.36.0/microsoft.playwright.1.36.0.nupkg.sha512",
+    "/home/dotracc/.nuget/packages/npgsql/7.0.4/npgsql.7.0.4.nupkg.sha512",
+    "/home/dotracc/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.4/npgsql.entityframeworkcore.postgresql.7.0.4.nupkg.sha512",
     "/home/dotracc/.nuget/packages/razorslices/0.7.0/razorslices.0.7.0.nupkg.sha512",
-    "/home/dotracc/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512",
-    "/home/dotracc/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
-    "/home/dotracc/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512"
+    "/home/dotracc/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/dotracc/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
+    "/home/dotracc/.nuget/packages/system.text.json/6.0.5/system.text.json.6.0.5.nupkg.sha512"
   ],
   "logs": []
 }

@@ -18,18 +18,5 @@ public static class Routing
         //https://htmx.org/examples/infinite-scroll/
         
         
-        AddMain(app.MapGroup("/"), db);
     }
-
-    private static void AddMain(RouteGroupBuilder app, Db? db)
-    {
-        
-        
-        
-        
-        
-        
-    }
-    
-    
 }

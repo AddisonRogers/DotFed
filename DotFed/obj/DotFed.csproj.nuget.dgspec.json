@@ -55,13 +55,9 @@
               "target": "Package",
               "version": "[7.0.9, )"
             },
-            "Microsoft.EntityFrameworkCore.InMemory": {
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[7.0.9, )"
-            },
-            "Microsoft.Playwright": {
-              "target": "Package",
-              "version": "[1.36.0, )"
+              "version": "[7.0.4, )"
             },
             "RazorSlices": {
               "target": "Package",
