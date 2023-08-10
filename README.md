@@ -1,6 +1,6 @@
 # DotFed
 
-This is primarily going to be showing off my skill in the Dotnet eco system rather than a fully functioning website.
+This is primarily going to be used to experiment in C#, Go and Zig while also being extremely efficent for my choices of tech stack. 
 
 
 This is all going to be hosted via Kind then Kubernetes. I will write the full setup on how I did all of this and my considerations on my blog.
