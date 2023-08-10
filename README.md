@@ -9,10 +9,20 @@ This is all going to be hosted via Kind then Kubernetes. I will write the full s
 
 
 Backend: I am using C# Razor files with a Minimal API because of the speed and less design patterns that I find unnatural.
+
+
 Frontend: HTMX + Hyperscript + Twind for general use and then Zig WebAssembly for a client side worker.
+
+
 Worker: Currently it is being written in Go as it has good support with RabbitMQ, JSON and Postgres while being fast but I plan on switching to Zig by making my own implementations in all of these pain points.
+
+
 Mobile: Flutter + a Zig worker mapped through FFI.
+
+
 API: A C# Minimal API because of the speed and ease of use.
+
+
 Devops: Github Actions + ghcr.io + Kubernetes.
 
 
