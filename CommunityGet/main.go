@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"sync"
 )
 
 type Community struct {
@@ -42,47 +41,40 @@ func main() {
 	}
 
 	// convert byte slice to string
-
 	result := gjson.Get(string(bytes), "data.thefederation_node")
 
 	var Threads []Thread
 
-	var wg sync.WaitGroup
-	threadCh := make(chan Thread, len(result.Array())) // Buffered channel
+	//threadCh := make(chan Thread, len(result.Array())) // Buffered channel
 
-	for _, name := range result.Array() {
-		wg.Add(1) // Increment the WaitGroup counter
+	for l, name := range result.Array() {
 
-		go func(name gjson.Result) {
-			defer wg.Done() // Decrement counter when goroutine completes
-
+		func(name gjson.Result) {
 			var Communities []Community
 			Communities = get(name.Get("name").String(), Communities)
 
 			if name.Get("thefederation_platform.name").String() == "lemmy" {
-				threadCh <- Thread{
+				Threads = append(Threads, Thread{
 					Title:       name.Get("name").String(),
 					Platform:    name.Get("thefederation_platform.name").String(),
 					OpenSignups: name.Get("open_signups").Bool(),
 					Communities: Communities,
-				} // Send to channel
+				}) // Send to channel)
 			}
 
-			fmt.Println(name.String())
-
+			fmt.Println(l, ":", name.String()) // There is 1691 elements to go through woot
+			for k, community := range Communities {
+				fmt.Println(k, ":", community)
+			}
 		}(name)
 	}
 
 	// Close channel after all goroutines finish
-	go func() {
-		wg.Wait()
-		close(threadCh)
-	}()
 
 	// Append values from channel to Threads slice
-	for thread := range threadCh {
+	/*for thread := range threadCh {
 		Threads = append(Threads, thread)
-	}
+	}*/
 
 	print(len(Threads))
 	println("All done")
@@ -108,20 +100,30 @@ func main() {
 func get(url string, Communities []Community) []Community {
 	c := colly.NewCollector()
 
+	var i int
 	c.OnHTML("tbody tr", func(e *colly.HTMLElement) {
+		i++ // count the number of elements in the thing
 		var h = e.DOM.Find("td a")
 		w, _ := e.DOM.Find("td a").Attr("href")
-		fmt.Println(h.Text(), w)
 		Communities = append(Communities, Community{
 			Name: h.Text(),
 			Link: w,
 		})
-
 	})
 
-	for i := 1; i < 100; i++ { // I can speed this up by getting the actual count of pages
-		_ = c.Visit(fmt.Sprintf("https://%s/communities?listingType=Local&page=%d", url, i))
+	j := 1
+	for j < 100 { //
+		i = 0
+		_ = c.Visit(fmt.Sprintf("https://%s/communities?listingType=Local&page=%d", url, j))
+		if i == 0 {
+			break
+		}
+		j++
+
 	}
 
+	if i != 0 {
+		return Communities
+	}
 	return Communities
 }
