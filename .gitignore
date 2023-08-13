@@ -1,23 +1,4 @@
+bin/
+obj/
 .DS_Store
-node_modules
-/build
-Website/.svelte-kit
-/package
-.env
-.env.*
-!.env.example
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-
-
-# WASM
-Website/src/wasm_modules/zig-out/bin
-Website/src/wasm_modules/zig-cache
-
-# DotFedServer
-DotFedServer/.idea
-DotFedServer/.idea/*
-DotFedServer/DotFedServer/obj
-DotFedServer/DotFedServer/obj/*
-DotFedServer/DotFedServer/bin
-DotFedServer/DotFedServer/bin/*
+.idea
