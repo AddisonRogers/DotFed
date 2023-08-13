@@ -39,9 +39,10 @@ func main() {
 		failOnError(err, "Failed to read file")
 
 		json := string(jsonData)
-		fmt.Println(gjson.Get(json, "1.name")) // TODO get the name
-
+		results := gjson.Get(json, "#.title").Array() // TODO get the name
 		gjson.Get(json, "#.communities").ForEach(func(i, communities gjson.Result) bool {
+			println(results[i.Int()].String())
+			time.Sleep(1 * time.Second) //TODO remove when ready
 			if communities.Raw != "null" {
 				time.Sleep(1 * time.Second) //TODO remove when ready
 				communities.ForEach(func(_, community gjson.Result) bool {
