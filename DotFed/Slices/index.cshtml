@@ -1,17 +1,28 @@
-﻿@inherits RazorSliceHttpResult<string>
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>Hello from Razor Slices!</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
+    <title>DotFed</title>
     <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+    <script type="module">
+      import { tw } from 'https://cdn.skypack.dev/twind'
+    </script>
 </head>
-<body>
-<div>
-    <button hx-post="/hello" hx-swap="outerHTML" hx-trigger="click" hx-target="#change"> Click me! </button>
-    <text id = "change"> wha </text> from Razor Slices! The time is @Model
-</div>
+
+
+<body class="{{ tw('container mx-auto m-4 p-4 bg-gray-200') }}">
+<h1 class="{{ tw('text-2xl') }}">Reddit-like Homepage</h1>
+<h2 class="{{ tw('text-xl mt-4') }}">Posts:</h2>
+@foreach (var post in DotFed.Slices.IndexModel.Posts) // So we ship data to the view via the model but when it is needed we update via post request via htmx
+{
+    <div class="{{ tw('flex justify-between items-center p-2 bg-white rounded-lg mt-4') }}">
+        <div>@post</div>
+        <div>
+            <button class="{{ tw('p-1 rounded-lg bg-green-400 text-white') }}">Upvote</button>
+            <button class="{{ tw('p-1 rounded-lg bg-red-400 text-white') }}">Downvote</button>
+        </div>
+    </div>
+}
 </body>
 </html>
+

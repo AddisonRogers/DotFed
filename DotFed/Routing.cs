@@ -1,6 +1,7 @@
 ﻿using System.Net.Mail;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using DotFed.Slices;
 using Isopoh.Cryptography.Argon2;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.AspNetCore.Http.Results;
@@ -13,15 +14,16 @@ public static class Routing
     
     public static void AddRoutes(this WebApplication app, Db? db)
     {
-        app.MapGet("/", () => Results.Extensions.RazorSlice("/Slices/Index.cshtml", "NAME"));
+        IndexModel.Routes(app.MapGroup("/"), db);
         
         
         
         
         
+        /*
         app.MapPost("/", () => Content("<span>Hello World</span>", "text/html"));
         //https://htmx.org/examples/infinite-scroll/
-        
+        */
         
     }
 }

@@ -1,9 +1,13 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	_ "github.com/lib/pq"
 	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/tidwall/gjson"
 	"log"
+	"os"
 	"time"
 )
 
@@ -13,30 +17,64 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func main() { /*
-		connStr := "user=pqgotest dbname=pqgotest sslmode=verify-full"
-		db, err := sql.Open("postgres", connStr)
-		if err != nil {
-			log.Fatal(err)
-		}
-	*/// Connects to the DB
+func main() {
 
+	//db := Database()
+	msgs := RabbitMq()
+
+	go func() {
+		for d := range msgs {
+			log.Printf("Received a message: %s", d.Body)
+
+			// Update(d.Body) // TODO Validation and stuff
+
+			err := d.Ack(false)
+			failOnError(err, "Failed to acknowledge a message")
+		}
+	}()
+	for {
+		log.Printf("h")
+		time.Sleep(1 * time.Second)
+		jsonData, err := os.ReadFile("output.json")
+		failOnError(err, "Failed to read file")
+
+		json := string(jsonData)
+		fmt.Println(gjson.Get(json, "1.name")) // TODO get the name
+
+		gjson.Get(json, "#.communities").ForEach(func(i, communities gjson.Result) bool {
+			if communities.Raw != "null" {
+				time.Sleep(1 * time.Second) //TODO remove when ready
+				communities.ForEach(func(_, community gjson.Result) bool {
+					fmt.Printf("Name: %s, Link: %s\n", community.Get("name").String(), community.Get("link").String())
+					// Update() // TODO put the correct thing here
+					return true
+				})
+			}
+			return true
+		})
+	}
+}
+
+func Database() *sql.DB {
+	connStr := "user=pqgotest dbname=pqgotest sslmode=verify-full"
+	db, err := sql.Open("postgres", connStr)
+	failOnError(err, "Failed to open database")
+	return db
+}
+
+func RabbitMq() <-chan amqp.Delivery {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/") // TODO Change this to the docker container
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer func(conn *amqp.Connection) {
 		err := conn.Close()
-		if err != nil {
-			log.Panicf("Failed to close connection: %s", err)
-		}
+		failOnError(err, "Failed to close connection")
 	}(conn) // Close when done
 
 	ch, err := conn.Channel()
 	failOnError(err, "Failed to open a channel")
 	defer func(ch *amqp.Channel) {
 		err := ch.Close()
-		if err != nil {
-			log.Panicf("Failed to close channel: %s", err)
-		}
+		failOnError(err, "Failed to close channel")
 	}(ch) // Close when done
 
 	q, err := ch.QueueDeclare(
@@ -59,18 +97,9 @@ func main() { /*
 		nil,    // args
 	)
 	failOnError(err, "Failed to register a consumer")
-
-	go func() {
-		for d := range msgs {
-			log.Printf("Received a message: %s", d.Body)
-			d.Ack(false)
-		}
-	}()
-	for {
-		log.Printf("h")
-		time.Sleep(1 * time.Second)
-		// Goes through the DB and updates the values
-	}
+	return msgs
 }
-func update() {
+
+func Update() {
+
 }
