@@ -1,21 +1,19 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	_ "github.com/lib/pq"
-	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/tidwall/gjson"
-	"log"
-	"os"
-	"time"
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/gocolly/colly"
+	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/tidwall/gjson"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"io"
 	"log"
 	"os"
+	"time"
 )
 
 func failOnError(err error, msg string) {
@@ -25,8 +23,7 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-
-	//db := Database()
+	db := Database()
 	msgs := RabbitMq()
 
 	go func() {
@@ -43,7 +40,11 @@ func main() {
 		log.Printf("h")
 		time.Sleep(1 * time.Second)
 		jsonData, err := os.ReadFile("output.json")
-		failOnError(err, "Failed to read file")
+		if err != nil {
+			CommunityGet()
+			jsonData, err = os.ReadFile("output.json")
+			failOnError(err, "Failed to read file")
+		}
 
 		json := string(jsonData)
 		results := gjson.Get(json, "#.title").Array() // TODO get the name
@@ -63,11 +64,27 @@ func main() {
 	}
 }
 
-func Database() *sql.DB {
-	connStr := "user=pqgotest dbname=pqgotest sslmode=verify-full"
-	db, err := sql.Open("postgres", connStr)
-	failOnError(err, "Failed to open database")
-	return db
+func Database() *mongo.Client {
+	const uri = "mongodb://localhost:27017"
+	// Use the SetServerAPIOptions() method to set the Stable API version to 1
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
+	// Create a new client and connect to the server
+	client, err := mongo.Connect(context.TODO(), opts)
+	if err != nil {
+		panic(err)
+	}
+	defer func() {
+		if err = client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+	var result bson.M
+	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{"ping", 1}}).Decode(&result); err != nil {
+		panic(err)
+	}
+	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+	return client
 }
 
 func RabbitMq() <-chan amqp.Delivery {
@@ -108,8 +125,57 @@ func RabbitMq() <-chan amqp.Delivery {
 	return msgs
 }
 
-func Update() {
+type CommunityUpdate struct {
+	Collection    string
+	CommunityName string
+	CommunityLink string
+}
 
+func Update(db *mongo.Client, community CommunityUpdate) {
+	_, err := db.Database("nodes").Collection(community.Collection).InsertOne(context.TODO(), bson.D{})
+	failOnError(err, "Failed to insert a document")
+	// Change the current database so instead node-communities has a list of communities each community being a foriegn key to a new table
+	// Table will be basically just a name, link, node-name, thread and data
+
+	// then we should get the communities from the node which we can update with JSON
+
+	// B - Check if the community exists
+	// If not make it in the database
+	// Fetch the JSON from the API and put it into the database
+
+}
+
+type Node struct {
+	Name        string       `bson:"name"`
+	Link        string       `bson:"link"`
+	Platform    string       `bson:"platform"`
+	OpenSignups bool         `bson:"open_signups"`
+	Communities []NCommunity `bson:"communities, omitEmpty"`
+}
+
+type NCommunity struct {
+	Name  string `bson:"name"`
+	Link  string `bson:"link"`
+	Posts []Post `bson:"posts, omitEmpty"`
+}
+
+type Post struct {
+	Title     string    `bson:"title"`
+	Link      string    `bson:"link"`
+	Author    string    `bson:"author"`
+	Published string    `bson:"published"`
+	Content   string    `bson:"content"`
+	UpVotes   int       `bson:"up_votes"`
+	DownVotes int       `bson:"down_votes"`
+	Comments  []Comment `bson:"comments, omitEmpty"`
+}
+
+type Comment struct {
+	Author    string `bson:"author"`
+	Published string `bson:"published"`
+	Content   string `bson:"content"`
+	UpVotes   int    `bson:"up_votes"`
+	DownVotes int    `bson:"down_votes"`
 }
 
 type Community struct {
@@ -124,6 +190,7 @@ type Thread struct {
 	Communities []Community `json:"communities"`
 }
 
+// CommunityGet This loops through the JSON doc and then calls the get function to get the communities from the website
 func CommunityGet() {
 	file, err := os.Open("data.json")
 	if err != nil {
@@ -147,8 +214,6 @@ func CommunityGet() {
 
 	var Threads []Thread
 
-	//threadCh := make(chan Thread, len(result.Array())) // Buffered channel
-
 	for l, name := range result.Array() {
 
 		func(name gjson.Result) {
@@ -161,36 +226,26 @@ func CommunityGet() {
 					Platform:    name.Get("thefederation_platform.name").String(),
 					OpenSignups: name.Get("open_signups").Bool(),
 					Communities: Communities,
-				}) // Send to channel)
+				})
 			}
 
-			fmt.Println(l, ":", name.String()) // There is 1691 elements to go through woot
+			fmt.Println(l, ":", name.String())
 			for k, community := range Communities {
 				fmt.Println(k, ":", community)
 			}
 		}(name)
 	}
 
-	// Close channel after all goroutines finish
-
-	// Append values from channel to Threads slice
-	/*for thread := range threadCh {
-		Threads = append(Threads, thread)
-	}*/
-
 	print(len(Threads))
 	println("All done")
 
-	os.Remove("output.json")
+	err = os.Remove("output.json")
+	failOnError(err, "Failed to remove file")
 	newFile, err := os.Create("output.json")
-	if err != nil {
-		log.Fatalf("Failed to create file: %v\n", err)
-	}
+	failOnError(err, "Failed to create file")
 	defer func(newFile *os.File) {
 		err := newFile.Close()
-		if err != nil {
-			log.Fatalf("Failed to close file: %v\n", err)
-		}
+		failOnError(err, "Failed to close file")
 	}(newFile)
 
 	encoder := json.NewEncoder(newFile)
@@ -200,7 +255,8 @@ func CommunityGet() {
 	}
 }
 
-func get(url string, Communities []Community) []Community {
+// This goes to the URL and gets the communities from the website and then appends it to the community list
+func get(url string, communities []Community) []Community {
 	c := colly.NewCollector()
 
 	var i int
@@ -208,7 +264,7 @@ func get(url string, Communities []Community) []Community {
 		i++ // count the number of elements in the thing
 		var h = e.DOM.Find("td a")
 		w, _ := e.DOM.Find("td a").Attr("href")
-		Communities = append(Communities, Community{
+		communities = append(communities, Community{
 			Name: h.Text(),
 			Link: w,
 		})
@@ -226,7 +282,7 @@ func get(url string, Communities []Community) []Community {
 	}
 
 	if i != 0 {
-		return Communities
+		return communities
 	}
-	return Communities
+	return communities
 }
