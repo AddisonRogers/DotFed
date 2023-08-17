@@ -12,6 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"time"
 )
@@ -30,7 +31,7 @@ func main() {
 		for d := range msgs {
 			log.Printf("Received a message: %s", d.Body)
 
-			// Update(d.Body) // TODO Validation and stuff
+			// NewUpdate(d.Body) // TODO Validation and stuff
 
 			err := d.Ack(false)
 			failOnError(err, "Failed to acknowledge a message")
@@ -55,7 +56,7 @@ func main() {
 				time.Sleep(1 * time.Second) //TODO remove when ready
 				communities.ForEach(func(_, community gjson.Result) bool {
 					fmt.Printf("Name: %s, Link: %s\n", community.Get("name").String(), community.Get("link").String())
-					// Update() // TODO put the correct thing here
+					// NewUpdate() // TODO put the correct thing here
 					return true
 				})
 			}
@@ -103,12 +104,12 @@ func RabbitMq() <-chan amqp.Delivery {
 	}(ch) // Close when done
 
 	q, err := ch.QueueDeclare(
-		"Update", // name
-		false,    // durable
-		false,    // delete when unused
-		false,    // exclusive
-		false,    // no-wait
-		nil,      // arguments
+		"NewUpdate", // name
+		false,       // durable
+		false,       // delete when unused
+		false,       // exclusive
+		false,       // no-wait
+		nil,         // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
 
@@ -126,23 +127,54 @@ func RabbitMq() <-chan amqp.Delivery {
 }
 
 type CommunityUpdate struct {
-	Collection    string
-	CommunityName string
-	CommunityLink string
+	Collection     string
+	CollectionLink string
+	CommunityName  string
+	CommunityLink  string
+	Platform       string
+	OpenSignups    bool
 }
 
-func Update(db *mongo.Client, community CommunityUpdate) {
-	_, err := db.Database("nodes").Collection(community.Collection).InsertOne(context.TODO(), bson.D{})
-	failOnError(err, "Failed to insert a document")
-	// Change the current database so instead node-communities has a list of communities each community being a foriegn key to a new table
-	// Table will be basically just a name, link, node-name, thread and data
+func Update(db *mongo.Client, community CommunityUpdate) { // This is used to populate the database
 
-	// then we should get the communities from the node which we can update with JSON
+	resp, err := http.Get(fmt.Sprintf("https://%s/api/v3/post/list?community_name=%d&limit=50&page=1", community.CommunityLink, community.CommunityName))
+	failOnError(err, "Failed to get the posts")
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		failOnError(err, "Failed to close the body")
+	}(resp.Body)
 
-	// B - Check if the community exists
-	// If not make it in the database
-	// Fetch the JSON from the API and put it into the database
+	body, err := io.ReadAll(resp.Body)
+	failOnError(err, "Failed to read the body")
 
+	bodyStr := string(body)
+	_posts := gjson.Get(bodyStr, "posts.#.name").Array()
+
+	var posts []Post
+	// Something something for item in the gjson array append to the posts array
+
+	var newCommunities []NCommunity
+	var newCommunity = NCommunity{
+		Name:  community.CommunityName,
+		Link:  community.CommunityLink,
+		Posts: posts,
+	}
+
+	newCommunities = append(newCommunities, newCommunity)
+
+	newNode := Node{
+		Name:        community.Collection,
+		Link:        community.CollectionLink,
+		Platform:    community.Platform,
+		OpenSignups: community.OpenSignups,
+		Communities: newCommunities,
+	}
+
+	coll := db.Database("nodes").Collection(community.Collection)
+	filter := bson.D{{"Name", community.CommunityName}}
+	opts := options.Update().SetUpsert(true)
+	_, err = coll.UpdateOne(context.TODO(), filter, newNode, opts)
+	failOnError(err, "Failed to update the document")
 }
 
 type Node struct {
