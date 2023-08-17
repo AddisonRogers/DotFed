@@ -17,7 +17,7 @@ Frontend: HTMX + Hyperscript + Twind for general use and then Zig WebAssembly fo
 Worker: Currently it is being written in Go as it has good support with RabbitMQ, JSON and Postgres while being fast but I plan on switching to Zig by making my own implementations in all of these pain points.
 
 
-Mobile: Flutter + a Zig worker mapped through FFI.
+Mobile: Expo + Zig WASM
 
 
 API: A C# Minimal API because of the speed and ease of use.
