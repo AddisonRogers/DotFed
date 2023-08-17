@@ -40,23 +40,28 @@ func main() {
 	for {
 		log.Printf("h")
 		time.Sleep(1 * time.Second)
-		jsonData, err := os.ReadFile("output.json")
+		jsonData, err := os.ReadFile("output.rawJson")
 		if err != nil {
 			CommunityGet()
-			jsonData, err = os.ReadFile("output.json")
+			jsonData, err = os.ReadFile("output.rawJson")
 			failOnError(err, "Failed to read file")
 		}
 
-		json := string(jsonData)
-		results := gjson.Get(json, "#.title").Array() // TODO get the name
-		gjson.Get(json, "#.communities").ForEach(func(i, communities gjson.Result) bool {
-			println(results[i.Int()].String())
+		rawJson := string(jsonData)
+		results := gjson.Get(rawJson, "#.title").Array()
+		gjson.Get(rawJson, "#.communities").ForEach(func(i, communities gjson.Result) bool {
 			time.Sleep(1 * time.Second) //TODO remove when ready
 			if communities.Raw != "null" {
-				time.Sleep(1 * time.Second) //TODO remove when ready
 				communities.ForEach(func(_, community gjson.Result) bool {
 					fmt.Printf("Name: %s, Link: %s\n", community.Get("name").String(), community.Get("link").String())
-					// NewUpdate() // TODO put the correct thing here
+					Update(db, CommunityUpdate{
+						Collection:     results[i.Int()].String(),
+						CollectionLink: fmt.Sprintf("https://%s/c/", gjson.Get(results[i.Int()].String(), "title")),
+						CommunityName:  community.Get("name").String(),
+						CommunityLink:  community.Get("link").String(),
+						Platform:       gjson.Get(results[i.Int()].String(), "platform").String(),
+						OpenSignups:    gjson.Get(results[i.Int()].String(), "open_signups").Bool(),
+					})
 					return true
 				})
 			}
@@ -147,11 +152,36 @@ func Update(db *mongo.Client, community CommunityUpdate) { // This is used to po
 	body, err := io.ReadAll(resp.Body)
 	failOnError(err, "Failed to read the body")
 
-	bodyStr := string(body)
-	_posts := gjson.Get(bodyStr, "posts.#.name").Array()
-
 	var posts []Post
-	// Something something for item in the gjson array append to the posts array
+
+	bodyStr := string(body)
+	gjson.Get(bodyStr, "posts").ForEach(func(_, value gjson.Result) bool {
+		rawPost := value.Raw
+		post := Post{
+			Title:         gjson.Get(rawPost, "post.name").String(),
+			Link:          gjson.Get(rawPost, "post.url").String(),
+			Author:        gjson.Get(rawPost, "creator.name").String(),
+			AuthorID:      gjson.Get(rawPost, "creator.actor_id").String(),
+			AuthorAvatar:  gjson.Get(rawPost, "creator.avatar").String(),
+			AuthorAdmin:   gjson.Get(rawPost, "creator.admin").Bool(),
+			CommunityName: gjson.Get(rawPost, "community.name").String(),
+			CommunityLink: gjson.Get(rawPost, "community.actor_id").String(),
+			CommunityIcon: gjson.Get(rawPost, "community.icon").String(),
+			CommunityNSFW: gjson.Get(rawPost, "community.nsfw").Bool(),
+			Published:     gjson.Get(rawPost, "post.published").String(),
+			Content:       gjson.Get(rawPost, "post.content").String(),
+			Url:           gjson.Get(rawPost, "post.url").String(),
+			UpVotes:       int(gjson.Get(rawPost, "counts.upvotes").Int()),
+			DownVotes:     int(gjson.Get(rawPost, "counts.downvotes").Int()),
+			CommentCount:  int(gjson.Get(rawPost, "counts.comments").Int()),
+			removed:       gjson.Get(rawPost, "post.removed").Bool(),
+			locked:        gjson.Get(rawPost, "post.locked").Bool(),
+			deleted:       gjson.Get(rawPost, "post.deleted").Bool(),
+			nsfw:          gjson.Get(rawPost, "post.nsfw").Bool(),
+		}
+		posts = append(posts, post)
+		return true
+	})
 
 	var newCommunities []NCommunity
 	var newCommunity = NCommunity{
@@ -192,14 +222,26 @@ type NCommunity struct {
 }
 
 type Post struct {
-	Title     string    `bson:"title"`
-	Link      string    `bson:"link"`
-	Author    string    `bson:"author"`
-	Published string    `bson:"published"`
-	Content   string    `bson:"content"`
-	UpVotes   int       `bson:"up_votes"`
-	DownVotes int       `bson:"down_votes"`
-	Comments  []Comment `bson:"comments, omitEmpty"`
+	Title         string `bson:"title"`
+	Link          string `bson:"link"`
+	Author        string `bson:"author"`
+	AuthorID      string `bson:"author_id"`
+	AuthorAvatar  string `bson:"author_avatar"`
+	AuthorAdmin   bool   `bson:"author_admin"`
+	CommunityName string `bson:"community_name"`
+	CommunityLink string `bson:"community_link"`
+	CommunityIcon string `bson:"community_icon"`
+	CommunityNSFW bool   `bson:"community_nsfw"`
+	Published     string `bson:"published"`
+	Content       string `bson:"content"`
+	Url           string `bson:"url"`
+	UpVotes       int    `bson:"up_votes"`
+	DownVotes     int    `bson:"down_votes"`
+	CommentCount  int    `bson:"comment_count"`
+	removed       bool   `bson:"removed"`
+	locked        bool   `bson:"locked"`
+	deleted       bool   `bson:"deleted"`
+	nsfw          bool   `bson:"nsfw"`
 }
 
 type Comment struct {
