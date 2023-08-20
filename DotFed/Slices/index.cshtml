@@ -8,91 +8,113 @@
 </head>
 
 <body class="{{ tw('container mx-auto m-4 p-4 bg-gray-200') }}">
-<div class="flex">
-    <div class="w-64 bg-gray-300 p-4">
-        <!-- Sidebar content -->
-        Link 1 <br/>
-        Link 2 <br/>
-        Link 3 <br/>
+
+
+
+<div class="flex h-screen">
+    <div class="w-64 bg-white p-6 fixed h-full overflow-auto">
+        <h2 class="text-gray-900 text-lg uppercase font-bold mb-4">Sidebar</h2>
+        <ul>
+            <li class="mb-2">
+                <a href="#" class="text-gray-700 flex items-center">
+                    <span>Link 1</span>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="#" class="text-gray-700 flex items-center">
+                    <span>Link 2</span>
+                </a>
+            </li>
+            <li class="mb-2">
+                <a href="#" class="text-gray-700 flex items-center">
+                    <span>Link 3</span>
+                </a>
+            </li>
+        </ul>
     </div>
-    <div class="flex-grow bg-white p-4">
-        <div class="mx-auto max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
-            <div class="md:flex">
-                <div class="md:flex-shrink-0">
-                    <img class="h-48 w-full object-cover md:h-full md:w-48" src="https://placekitten.com/640/360" alt="An adorable kitten">
-                </div>
-                <div class="p-8">
-                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">r/catlovers</div>
-                    <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Cute kitten playing</a>
-                    <p class="mt-2 text-gray-500">This is a wider card with content supporting the content type div.</p>
-                    <div class="flex mt-6">
-                        <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">Upvote</button>
+    <div class="flex justify-center p-6 pl-64">
+        <div class="flex-grow bg-white p-4">
+                <div class="mx-auto max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+                    <div class="md:flex">
+                        <div class="md:flex-shrink-0">
+                            <img class="h-48 w-full object-cover md:h-full md:w-48" src="https://placekitten.com/640/360" alt="An adorable kitten">
                         </div>
-                        <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
-                            <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4">Downvote</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col items-center justify-center ml-auto">
+                        <div class="p-8">
+                            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">r/catlovers</div>
+                            <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Cute kitten playing</a>
+                            <p class="mt-2 text-gray-500">This is a wider card with content supporting the content type div.</p>
+                            <div class="flex mt-6">
                                 <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-green-500 cursor-pointer" viewBox="0 0 24 24">
-                                        <path d="M7 14l5-5 5 5H7z"></path>
-                                    </svg>
-                                </div>
-                                <div class="text-white p-1 rounded-full mb-1 mt-1" style="background: linear-gradient(to bottom, green @DotFed.Slices.IndexModel.UpvotesPercent%, red @DotFed.Slices.IndexModel.DownvotesPercent%);">
-                                    <p>120</p>
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">Upvote</button>
                                 </div>
                                 <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-red-500 cursor-pointer" viewBox="0 0 24 24">
-                                        <path d="M7 10l5 5 5-5H7z"></path>
-                                    </svg>
+                                    <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4">Downvote</button>
                                 </div>
                             </div>
-            </div>
-        </div>
-        <div class="mx-auto max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
-            <div class="w-full overflow-hidden">
-                <img class="w-full object-contain" src="https://placekitten.com/640/360" alt="Adorable kitten">
-            </div>
-            <div class="md:flex">
-                <div class="p-8">
-                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">r/catlovers</div>
-                    <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Cute kitten playing</a>
-                    <p class="mt-2 text-gray-500">This is a wider card with content supporting the content type div.</p>
-                    <div class="flex mt-6">
-                        <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">Upvote</button>
                         </div>
-                        <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
-                            <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4">Downvote</button>
+                        <div class="flex flex-col items-center justify-center ml-auto">
+                            <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-green-500 cursor-pointer" viewBox="0 0 24 24">
+                                    <path d="M7 14l5-5 5 5H7z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-white p-1 rounded-full mb-1 mt-1" style="background: linear-gradient(to bottom, green @DotFed.Slices.IndexModel.UpvotesPercent%, red @DotFed.Slices.IndexModel.DownvotesPercent%);">
+                                <p>120</p>
+                            </div>
+                            <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-red-500 cursor-pointer" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5H7z"></path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col items-center justify-center ml-auto">
-                    <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-green-500 cursor-pointer" viewBox="0 0 24 24">
-                            <path d="M7 14l5-5 5 5H7z"></path>
-                        </svg>
+                <div class="mx-auto max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+                    <div class="w-full overflow-hidden">
+                        <img class="w-full object-contain" src="https://placekitten.com/640/360" alt="Adorable kitten">
                     </div>
-                    <div class="text-white p-1 rounded-full mb-1 mt-1" style="background: linear-gradient(to bottom, green @DotFed.Slices.IndexModel.UpvotesPercent%, red @DotFed.Slices.IndexModel.DownvotesPercent%);">
-                        <p>120</p>
-                    </div>
-                    <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-red-500 cursor-pointer" viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5H7z"></path>
-                        </svg>
+                    <div class="md:flex">
+                        <div class="p-8">
+                            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">r/catlovers</div>
+                            <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Cute kitten playing</a>
+                            <p class="mt-2 text-gray-500">This is a wider card with content supporting the content type div.</p>
+                            <div class="flex mt-6">
+                                <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">Upvote</button>
+                                </div>
+                                <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                                    <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4">Downvote</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center ml-auto">
+                            <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-green-500 cursor-pointer" viewBox="0 0 24 24">
+                                    <path d="M7 14l5-5 5 5H7z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-white p-1 rounded-full mb-1 mt-1" style="background: linear-gradient(to bottom, green @DotFed.Slices.IndexModel.UpvotesPercent%, red @DotFed.Slices.IndexModel.DownvotesPercent%);">
+                                <p>120</p>
+                            </div>
+                            <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-red-500 cursor-pointer" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5H7z"></path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
     </div>
 </div>
 
 
 
-    
-    
+
+
+
+
+
 
 </body>
 </html>
