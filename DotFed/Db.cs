@@ -2,7 +2,6 @@
 using System.Net.Mail;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace DotFed;
 

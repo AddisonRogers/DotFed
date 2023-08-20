@@ -4,25 +4,96 @@
     <title>DotFed</title>
     <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
-    <script type="module">
-      import { tw } from 'https://cdn.skypack.dev/twind'
-    </script>
+    <link rel="stylesheet" href="~/output.css"/>
 </head>
 
 
 <body class="{{ tw('container mx-auto m-4 p-4 bg-gray-200') }}">
-<h1 class="{{ tw('text-2xl') }}">Reddit-like Homepage</h1>
-<h2 class="{{ tw('text-xl mt-4') }}">Posts:</h2>
-@foreach (var post in DotFed.Slices.IndexModel.Posts) // So we ship data to the view via the model but when it is needed we update via post request via htmx
-{
-    <div class="{{ tw('flex justify-between items-center p-2 bg-white rounded-lg mt-4') }}">
-        <div>@post</div>
-        <div>
-            <button class="{{ tw('p-1 rounded-lg bg-green-400 text-white') }}">Upvote</button>
-            <button class="{{ tw('p-1 rounded-lg bg-red-400 text-white') }}">Downvote</button>
-        </div>
+<div class="flex">
+    <div class="w-64 bg-gray-300 p-4">
+        <!-- Sidebar content -->
+        Link 1 <br/>
+        Link 2 <br/>
+        Link 3 <br/>
     </div>
-}
+    <div class="flex-grow bg-white p-4">
+        <div class="mx-auto max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+            <div class="md:flex">
+                <div class="md:flex-shrink-0">
+                    <img class="h-48 w-full object-cover md:h-full md:w-48" src="https://placekitten.com/640/360" alt="An adorable kitten">
+                </div>
+                <div class="p-8">
+                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">r/catlovers</div>
+                    <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Cute kitten playing</a>
+                    <p class="mt-2 text-gray-500">This is a wider card with content supporting the content type div.</p>
+                    <div class="flex mt-6">
+                        <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">Upvote</button>
+                        </div>
+                        <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                            <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4">Downvote</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center ml-auto">
+                                <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-green-500 cursor-pointer" viewBox="0 0 24 24">
+                                        <path d="M7 14l5-5 5 5H7z"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-white p-1 rounded-full mb-1 mt-1" style="background: linear-gradient(to bottom, green @DotFed.Slices.IndexModel.UpvotesPercent%, red @DotFed.Slices.IndexModel.DownvotesPercent%);">
+                                    <p>120</p>
+                                </div>
+                                <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-red-500 cursor-pointer" viewBox="0 0 24 24">
+                                        <path d="M7 10l5 5 5-5H7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+            </div>
+        </div>
+        <div class="mx-auto max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+            <div class="w-full overflow-hidden">
+                <img class="w-full object-contain" src="https://placekitten.com/640/360" alt="Adorable kitten">
+            </div>
+            <div class="md:flex">
+                <div class="p-8">
+                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">r/catlovers</div>
+                    <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Cute kitten playing</a>
+                    <p class="mt-2 text-gray-500">This is a wider card with content supporting the content type div.</p>
+                    <div class="flex mt-6">
+                        <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded">Upvote</button>
+                        </div>
+                        <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                            <button class="bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded ml-4">Downvote</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center ml-auto">
+                    <div hx-get="/post/upvote" hx-trigger="click" hx-swap="innerHTML">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-green-500 cursor-pointer" viewBox="0 0 24 24">
+                            <path d="M7 14l5-5 5 5H7z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-white p-1 rounded-full mb-1 mt-1" style="background: linear-gradient(to bottom, green @DotFed.Slices.IndexModel.UpvotesPercent%, red @DotFed.Slices.IndexModel.DownvotesPercent%);">
+                        <p>120</p>
+                    </div>
+                    <div hx-get="/post/downvote" hx-trigger="click" hx-swap="innerHTML">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-red-500 cursor-pointer" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5H7z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+
+
+
+    
+    
+
 </body>
 </html>
-

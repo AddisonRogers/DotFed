@@ -12,9 +12,9 @@ public static class Routing
 {
     static readonly HttpClient client = new HttpClient();
     
-    public static void AddRoutes(this WebApplication app, Db? db)
+    public static void AddRoutes(this WebApplication app)
     {
-        IndexModel.Routes(app.MapGroup("/"), db);
+        IndexModel.Routes(app.MapGroup("/"));
         
         
         

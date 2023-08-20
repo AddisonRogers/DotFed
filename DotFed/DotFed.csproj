@@ -12,7 +12,7 @@
       <PackageReference Include="Isopoh.Cryptography.Argon2" Version="1.1.12" />
       <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
       <PackageReference Include="RazorSlices" Version="0.7.0" />
     </ItemGroup>
 
