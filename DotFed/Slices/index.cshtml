@@ -6,79 +6,31 @@
     <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script src="https://kit.fontawesome.com/4047d6e26b.js" crossorigin="anonymous"></script>
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/@@unocss/runtime"></script>
+    </head>
 
 <body>
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://dotfed.com">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
     
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-    
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      
-    
-      <a class="navbar-item" href="https://dotfed.com/communities">
-        Communities
-      </a>
-    
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
-    
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="http://dotfed.com/about">
-            About
-          </a>
-          <a class="navbar-item" href="https://github.com/AddisonRogers/DotFed">
-            Github
-          </a>
-          <a class="navbar-item" href="https://github.com/AddisonRogers">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item" href="https://github.com/AddisonRogers/DotFed/issues">
-            Report an issue
-          </a>
+    <nav class="bg-transparent w-full p-4 sticky top-0 shadow-lg backdrop-filter backdrop-blur-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="font-bold text-2xl text-gray-900 hover:text-gray-600 transition-colors">DotFed</a>
+            <div class="flex items-center space-x-6">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-gray-800 font-medium hover:text-gray-600 transition-colors">Home</a></li>
+                    <li><a href="#" class="text-gray-800 font-medium hover:text-gray-600 transition-colors">About</a></li>
+                    <li><a href="#" class="text-gray-800 font-medium hover:text-gray-600 transition-colors">Contact</a></li>
+                </ul>
+                <div>
+                    <input type="text" class="px-4 py-2 rounded-lg text-gray-800" placeholder="Search">
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    
-    <div class="navbar-end">
-      
-      <div class="navbar-item">
-        <input id="search-input" class="input is-normal" type="text" placeholder="Search...">
-      </div>
-      
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+    </nav>
 
-<div class="columns" id="mainPageColumns">
-  <div class="column"> 
     
-    @for (int i = 1; i <= 10; i++)
+    
+@for (int i = 1; i <= 10; i++)
         {
           if (i == 10)
           {
@@ -86,18 +38,21 @@
             <div
               hx-post="/?page=@DotFed.Slices.IndexModel.count"
               hx-trigger="revealed"
-              hx-swap="afterend">
-              @i
+              hx-swap="afterend"
+              
+            
+            
+            
+              >
+              Post @i : Page @DotFed.Slices.IndexModel.count
             </div>
           }
           else
           {
-            <text>@i</text>
+            <div>Post @i</div>
           }
         }
     
     
-  </div>
-  </div>
 </body>
 </html>
