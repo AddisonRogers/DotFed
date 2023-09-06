@@ -1,6 +1,0 @@
-/home/addison/Documents/code/DotFed/DotFed/obj/Debug/net7.0/DotFed.csproj.AssemblyReference.cache
-/home/addison/Documents/code/DotFed/DotFed/obj/Debug/net7.0/DotFed.GeneratedMSBuildEditorConfig.editorconfig
-/home/addison/Documents/code/DotFed/DotFed/obj/Debug/net7.0/DotFed.AssemblyInfoInputs.cache
-/home/addison/Documents/code/DotFed/DotFed/obj/Debug/net7.0/DotFed.AssemblyInfo.cs
-/home/addison/Documents/code/DotFed/DotFed/obj/Debug/net7.0/DotFed.csproj.CoreCompileInputs.cache
-/home/addison/Documents/code/DotFed/DotFed/obj/Debug/net7.0/DotFed.MvcApplicationPartsAssemblyInfo.cache

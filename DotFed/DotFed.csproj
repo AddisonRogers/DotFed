@@ -9,15 +9,27 @@
 
     <ItemGroup>
       <PackageReference Include="Htmx" Version="1.2.0" />
+      <PackageReference Include="Htmx.TagHelpers" Version="1.3.1" />
       <PackageReference Include="Isopoh.Cryptography.Argon2" Version="1.1.12" />
       <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.9" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
+<<<<<<< HEAD
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
     </ItemGroup>
 
 
     <ItemGroup>
       <Folder Include="Components\" />
+=======
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.9" />
+      <PackageReference Include="RazorSlices" Version="0.7.0" />
+    </ItemGroup>
+
+
+
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+>>>>>>> 170192b3902b2a72fe7a53763c367d0760cdbf70
     </ItemGroup>
 
 </Project>
