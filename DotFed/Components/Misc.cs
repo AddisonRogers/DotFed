@@ -16,8 +16,14 @@ public static class Misc
         System.Console.WriteLine($"{props}");
 
 
-        return ($"<h1>Hello {props} mf</h1>");
+        return (div($"Hello {props}"));
     }
+
+    public static string div(string stuff)
+    {
+        return ($"<div>{stuff}</div>");
+    }
+    
     
     
 
@@ -28,7 +34,6 @@ public static class Misc
             <!DOCTYPE html>
             <html>
                 <head>
-
                     <title>DotFed</title>
                     <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
                     <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
